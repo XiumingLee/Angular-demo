@@ -1,6 +1,30 @@
+<div class="alain-default__content-title">
+  <h1>
+    级联选择
+    <small>Welcome !</small>
+  </h1>
+</div>
+
+<div nz-row>
+
 <form nz-form>
 
-  <nz-cascader [nzOptions]="cityOptions" [(ngModel)]="area.prefix" (ngModelChange)="onAreaChanges($event)"
-               [ngModelOptions]="{standalone: true}" [nzAllowClear]="false"></nz-cascader>
-  <input type="text" nz-input [(ngModel)]="area.info" placeholder="请输入详细地址" name="info">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="5" nzRequired>办理地点</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-cascader [nzOptions]="cityOptions" [(ngModel)]="area.prefix" (ngModelChange)="onAreaChanges($event)"
+                   [ngModelOptions]="{standalone: true}" [nzAllowClear]="false"></nz-cascader>
+      <input type="text" nz-input [(ngModel)]="area.info" placeholder="请输入详细地址" name="info">
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-control [nzSpan]="12" [nzOffset]="5">
+      <button nz-button nzType="primary">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+
 </form>
+
+</div>
