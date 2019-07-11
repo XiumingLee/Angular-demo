@@ -23,7 +23,7 @@ const routes: Routes = [
     canActivate: [SimpleGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: 'dashboard' } },
+      { path: 'dashboard', component: DashboardComponent, data: { title: '首页', titleI18n: '首页' } },
       { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
       // 业务子模块
       { path: 'cascade-selection', loadChildren: () => import('./apages/cascade-selection/cascade-selection.module').then(m => m.CascadeSelectionModule),data: { title: '级联选择示例'} },

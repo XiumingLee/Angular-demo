@@ -51,7 +51,7 @@ export class StartupService {
       // Menu data, https://ng-alain.com/theme/menu
       this.menuService.add(res.menu);
       // Can be set page suffix title, https://ng-alain.com/theme/title
-      this.titleService.suffix = res.app.name;
+      this.titleService.suffix = '';
     },
     () => { },
     () => {
@@ -68,7 +68,7 @@ export class StartupService {
     // }
     // mock
     const app: any = {
-      name: `ng-alain`,
+      name: ``,
       description: `Ng-zorro admin panel front-end framework`
     };
     const user: any = {
