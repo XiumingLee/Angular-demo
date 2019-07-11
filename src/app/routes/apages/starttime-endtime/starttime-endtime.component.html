@@ -1,0 +1,49 @@
+<div class="alain-default__content-title">
+  <h1>
+    开始时间结束时间
+    <small>Welcome !</small>
+  </h1>
+</div>
+
+<div nz-row>
+
+  <form nz-form>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired>开始时间</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-date-picker [nzDisabledDate]="disabledStartDate"  nzFormat="yyyy-MM-dd" nzAllowClear="false"
+                        [(ngModel)]="startValue" nzPlaceHolder="计划生效时间" (ngModelChange)="onStartChange($event)"
+                        [ngModelOptions]="{standalone: true}">
+        </nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired>结束时间</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-date-picker [nzDisabledDate]="disabledEndDate"  nzFormat="yyyy-MM-dd"
+                        [(ngModel)]="endValue" nzPlaceHolder="计划取消时间"  (ngModelChange)="onEndChange($event)"
+                        [ngModelOptions]="{standalone: true}">
+        </nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired>范围时间</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-range-picker
+          [(ngModel)]="dateRange"
+          [nzShowTime]="{ nzFormat: 'HH:mm:ss' }"
+          [nzPlaceHolder]="['Start Time', 'End Time']"
+          (ngModelChange)="onChange($event)"
+          (nzOnOk)="onOk($event)"
+          nzFormat="yyyy-MM-dd HH:mm:ss"
+          [ngModelOptions]="{standalone: true}"
+        ></nz-range-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+
+</div>
