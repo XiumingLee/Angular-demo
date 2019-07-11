@@ -1,0 +1,6 @@
+<form nz-form>
+
+  <nz-cascader [nzOptions]="cityOptions" [(ngModel)]="area.prefix" (ngModelChange)="onAreaChanges($event)"
+               [ngModelOptions]="{standalone: true}" [nzAllowClear]="false"></nz-cascader>
+  <input type="text" nz-input [(ngModel)]="area.info" placeholder="请输入详细地址" name="info">
+</form>
