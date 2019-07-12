@@ -1,0 +1,50 @@
+<div class="alain-default__content-title">
+  <h1>
+    表单校验
+    <small>Welcome !</small>
+  </h1>
+</div>
+
+<div nz-row>
+  <form nz-form [formGroup]="validateForm">
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired>姓名</nz-form-label>
+          <nz-form-control [nzSpan]="12" [nzErrorTip]="errorTpl">
+            <input nz-input formControlName="name" [(ngModel)]="data.name">
+          </nz-form-control>
+
+          <ng-template #errorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              请填写姓名!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('customValid')">
+              自定义的验证未通过!
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+
+    <!--    版本1.8的写法-->
+<!--    <nz-form-item>-->
+<!--      <nz-form-label [nzSpan]="5" nzRequired>姓名</nz-form-label>-->
+<!--      <nz-form-control [nzSpan]="12">-->
+<!--        <input nz-input formControlName="name" [(ngModel)]="data.name">-->
+<!--        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">-->
+<!--          <ng-container *ngIf="validateForm.get('name').hasError('required')">-->
+<!--            请填写姓名!-->
+<!--          </ng-container>-->
+<!--          <ng-container *ngIf="validateForm.get('name').hasError('customValid')">-->
+<!--            自定义的验证未通过!-->
+<!--          </ng-container>-->
+<!--        </nz-form-explain>-->
+<!--      </nz-form-control>-->
+<!--    </nz-form-item>-->
+
+    <nz-form-item>
+      <nz-form-control [nzSpan]="12" [nzOffset]="5">
+        <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</div>

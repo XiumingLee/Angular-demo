@@ -11,7 +11,7 @@ export class CascadeSelectionComponent implements OnInit {
 
   cityOptions: any;
   area = {
-    prefix: [],
+    prefix: ['甘肃省','庆阳市','合水县'],
     info: ''  // 详细地址
   };
   areaDetail:string;
