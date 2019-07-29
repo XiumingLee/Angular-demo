@@ -25,20 +25,20 @@
         </nz-form-item>
 
     <!--    版本1.8的写法-->
-<!--    <nz-form-item>-->
-<!--      <nz-form-label [nzSpan]="5" nzRequired>姓名</nz-form-label>-->
-<!--      <nz-form-control [nzSpan]="12">-->
-<!--        <input nz-input formControlName="name" [(ngModel)]="data.name">-->
-<!--        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">-->
-<!--          <ng-container *ngIf="validateForm.get('name').hasError('required')">-->
-<!--            请填写姓名!-->
-<!--          </ng-container>-->
-<!--          <ng-container *ngIf="validateForm.get('name').hasError('customValid')">-->
-<!--            自定义的验证未通过!-->
-<!--          </ng-container>-->
-<!--        </nz-form-explain>-->
-<!--      </nz-form-control>-->
-<!--    </nz-form-item>-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired>姓名</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input nz-input formControlName="name" [(ngModel)]="data.name">
+        <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">
+          <ng-container *ngIf="validateForm.get('name').hasError('required')">
+            请填写姓名!
+          </ng-container>
+          <ng-container *ngIf="validateForm.get('name').hasError('customValid')">
+            自定义的验证未通过!
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
 
     <nz-form-item>
       <nz-form-control [nzSpan]="12" [nzOffset]="5">

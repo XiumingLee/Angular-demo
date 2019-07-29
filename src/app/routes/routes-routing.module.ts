@@ -29,6 +29,7 @@ const routes: Routes = [
       { path: 'cascade-selection', loadChildren: () => import('./apages/cascade-selection/cascade-selection.module').then(m => m.CascadeSelectionModule),data: { title: '级联选择示例'} },
       { path: 'starttime-endtime', loadChildren: () => import('./apages/starttime-endtime/starttime-endtime.module').then(m => m.StarttimeEndtimeModule),data: { title: '开始时间结束时间示例'} },
       { path: 'form-checking', loadChildren: () => import('./apages/form-checking/form-checking.module').then(m => m.FormCheckingModule),data: { title: '表单验证'} },
+      { path: 'editable-table', loadChildren: () => import('./apages/editable-table/editable-table.module').then(m => m.EditableTableModule),data: { title: '可编辑表格'} },
     ]
   },
 

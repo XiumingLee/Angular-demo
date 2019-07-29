@@ -43,18 +43,6 @@ export class FormCheckingComponent implements OnInit {
       // return {};
     })
   };
-
-  customValidator2(): ValidatorFn{
-    return (control: FormControl): { [key: string]: any } => {
-      console.log(`自定义的校验器2--》${control.value}`);
-      if (!control.value) {
-        return { required: true };
-      } else if (control.value !== '李修明') {
-        return { customValid: true, error: true };
-      }
-      return null;
-    }
-  }
   /* 自定义的校验方法 - 结束 */
 
   /** 校验表单 */
