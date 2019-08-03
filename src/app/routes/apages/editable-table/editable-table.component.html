@@ -31,10 +31,11 @@
       <td>
         <nz-form-item>
           <nz-form-control>
-            <nz-select style="width: 100%" [formControlName]="data.id+'dept'" [(ngModel)]="editCache[data.id].data.dept" nzAllowClear nzPlaceHolder="请选择涉及部门" [nzDisabled]="!editCache[data.id].edit">
-              <nz-option nzValue="01" nzLabel="公安局"></nz-option>
-              <nz-option nzValue="02" nzLabel="税务局"></nz-option>
-              <nz-option nzValue="03" nzLabel="住建局"></nz-option>
+            <nz-select style="width: 100%"  [compareWith]="compareFn" [formControlName]="data.id+'dept'" [(ngModel)]="editCache[data.id].data.dept" (ngModelChange)="deptChange($event)" nzAllowClear nzPlaceHolder="请选择涉及部门" [nzDisabled]="!editCache[data.id].edit">
+              <nz-option *ngFor="let option of testData" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
+<!--              <nz-option nzValue="01" nzLabel="公安局"></nz-option>-->
+<!--              <nz-option nzValue="02" nzLabel="税务局"></nz-option>-->
+<!--              <nz-option nzValue="03" nzLabel="住建局"></nz-option>-->
             </nz-select>
             <nz-form-explain *ngIf="validateForm.get(data.id+'dept').dirty && validateForm.get(data.id+'dept').errors">
               <ng-container *ngIf="validateForm.get(data.id+'dept').hasError('required')">
@@ -87,5 +88,26 @@
     <span>新增事项</span>
   </button>
   <button nz-button nzType="dashed" nzBlock (click)="save()"> 提交</button>
+
+  <form>
+    <thead>
+    <tr>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+    </tbody>
+  </form>
 
 </div>

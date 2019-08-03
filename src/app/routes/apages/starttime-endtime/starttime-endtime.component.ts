@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { setHours } from 'date-fns';
 import { addDays } from 'date-fns';
+import {Location} from '@angular/common';
 
 
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-starttime-endtime',
@@ -15,10 +17,16 @@ export class StarttimeEndtimeComponent implements OnInit {
   startValue = '2020-02-03';
   endValue = '2020-03-09';
 
-  constructor() {
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location
+  ) {
   }
 
   ngOnInit() {
+    // 获取当前url
+    let path = this.location.path();
+    console.log(path);
   }
 
   disabledStartDate = (startValue: Date): boolean => {

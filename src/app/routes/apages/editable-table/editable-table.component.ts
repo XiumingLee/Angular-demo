@@ -15,6 +15,12 @@ export class EditableTableComponent implements OnInit {
   validateForm: FormGroup;
   currentItem={edit: false, data: {}}; // 当前正在编辑的事项
 
+  testData = [
+    {id:'01',name:'公安局'},
+    {id:'02',name:'税务局'},
+    {id:'03',name:'住建局'},
+  ]
+
   constructor(
     private fb: FormBuilder,
     private message: NzMessageService,
@@ -69,7 +75,7 @@ export class EditableTableComponent implements OnInit {
     console.log("请完善表单")
   }
 
-  /** 跟新编辑缓存*/
+  /** 更新编辑缓存*/
   updateEditCache(): void {
     this.listOfData.forEach(item => {
       this.editCache[item.id] = {
@@ -109,7 +115,7 @@ export class EditableTableComponent implements OnInit {
   /** 删除一行*/
   deleteRow(id: string): void {
     this.listOfData = this.listOfData.filter(d => d.id !== id);
-    this.removeValidate(this.editCache[id]);
+    this.removeValidate(this.editCache[id].data);
     delete this.editCache[id];
   }
 
@@ -141,5 +147,10 @@ export class EditableTableComponent implements OnInit {
       control.updateValueAndValidity();
     }
   }
+
+  deptChange(event){
+    console.log(event);
+  }
+  compareFn = (o1: any, o2: any) => (o1 && o2 ? o1.value === o2.value : o1 === o2);
 
 }
