@@ -31,6 +31,7 @@ const routes: Routes = [
       { path: 'form-checking', loadChildren: () => import('./apages/form-checking/form-checking.module').then(m => m.FormCheckingModule),data: { title: '表单验证'} },
       { path: 'editable-table', loadChildren: () => import('./apages/editable-table/editable-table.module').then(m => m.EditableTableModule),data: { title: '可编辑表格'} },
       { path: 'form-validator', loadChildren: () => import('./apages/form-validator/form-validator.module').then(m => m.FormValidatorModule),data: { title: '动态表单验证'} },
+      { path: 'component-test', loadChildren: () => import('./apages/component-test/component-test.module').then(m => m.ComponentTestModule),data: { title: '组件传值测试'} },
     ]
   },
 

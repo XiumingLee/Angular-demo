@@ -26,7 +26,7 @@ export class FormCheckingComponent implements OnInit {
   /** 构建表单 */
   buildForm(){
     this.validateForm = this.fb.group({
-      name:[null,Validators.required,this.customValidator]
+      name:[null,[Validators.required],this.customValidator]
     });
   }
 

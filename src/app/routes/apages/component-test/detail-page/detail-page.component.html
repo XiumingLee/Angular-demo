@@ -1,0 +1,13 @@
+<div class="alain-default__content-title">
+  <h1>
+    组件测试页
+    <small>Welcome !</small>
+  </h1>
+</div>
+
+<div nz-row>
+  <app-component-one [fatherData]="fatherData"></app-component-one>    <!-- 子组件-->
+
+  <button (click)="save()">提交测试</button>
+  <button (click)="changeFatherData()">改变传给子组件的值</button>
+</div>

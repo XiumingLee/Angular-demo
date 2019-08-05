@@ -1,0 +1,44 @@
+<nz-card nzTitle="基本信息">
+
+  <form nz-form [formGroup]="validateForm">
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired>姓名</nz-form-label>
+      <nz-form-control [nzSpan]="12" [nzErrorTip]="usernameErrorTpl">
+        <input nz-input formControlName="username" name="username" [(ngModel)]="data.username" />
+      </nz-form-control>
+
+      <ng-template #usernameErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          请填写姓名!
+        </ng-container>
+        <ng-container *ngIf="control.hasError('pattern')">
+          正则表达式未通过校验!
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired>性别</nz-form-label>
+      <nz-form-control [nzSpan]="12" [nzErrorTip]="sexErrorTpl">
+        <nz-select formControlName="sex" name="sex" nzPlaceHolder="请选择性别" [(ngModel)]="data.sex">
+          <nz-option nzLabel="女" nzValue="0"></nz-option>
+          <nz-option nzLabel="男" nzValue="1"></nz-option>
+        </nz-select>
+      </nz-form-control>
+
+      <ng-template #sexErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          请选择性别!
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+  </form>
+
+  <div>
+    <label>父组件传来的值：</label>
+    <label>{{fatherData.type}}</label>
+  </div>
+
+</nz-card>
