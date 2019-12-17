@@ -14,18 +14,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class StarttimeEndtimeComponent implements OnInit {
 
-  startValue = '2020-02-03';
-  endValue = '2020-03-09';
-
   constructor(
     private route: ActivatedRoute,
     private location: Location
   ) {
   }
 
+  startValue = '2020-02-03';
+  endValue = '2020-03-09';
+
+
+  ///////////////////////////////////////// 以下范围时间///////////////////////////////////////////////
+  dateRange = [new Date(),addDays(new Date(), 3)]; // [ new Date(), addDays(new Date(), 3) ];
+  dateRangeStartTime = '';
+  dateRangeEndTime = '';
+
   ngOnInit() {
     // 获取当前url
-    let path = this.location.path();
+    const path = this.location.path();
     console.log(path);
   }
 
@@ -65,12 +71,6 @@ export class StarttimeEndtimeComponent implements OnInit {
     console.log(this.endValue);
   }
 
-
-  /////////////////////////////////////////以下范围时间///////////////////////////////////////////////
-  dateRange = [new Date(),addDays(new Date(), 3)]; // [ new Date(), addDays(new Date(), 3) ];
-  dateRangeStartTime = '';
-  dateRangeEndTime = '';
-
   onChange(result: Date): void {
     console.log('Selected Time: ', result);
     console.log(this.dateRange);
@@ -96,6 +96,6 @@ export class StarttimeEndtimeComponent implements OnInit {
     }
     console.log(this.dateRangeStartTime,this.dateRangeEndTime);
   }
-/////////////////////////////////////////范围时间--结束///////////////////////////////////////////////
+///////////////////////////////////////// 范围时间--结束///////////////////////////////////////////////
 
 }

@@ -30,7 +30,7 @@ export class EditableTableComponent implements OnInit {
 
   ngOnInit(): void {
     for (let i = 1; i < 2; i++) {
-      let item = {
+      const item = {
         id: `item${i}`,
         dept: `01`,
         name: `01`,
@@ -102,7 +102,7 @@ export class EditableTableComponent implements OnInit {
     }
 
     this.itemNum++;
-    let item = {
+    const item = {
       id: `item${this.itemNum}`,
       dept: ``,
       name: ``,

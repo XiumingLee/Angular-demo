@@ -1,0 +1,144 @@
+<div class="alain-default__content-title">
+  <h1>
+    级联选择
+    <small>Welcome !</small>
+  </h1>
+</div>
+
+<div nz-row>
+  <nz-card style="width:800px;" nzTitle="增加角色">
+    <nz-input-group [nzSuffix]="suffixIcon">
+      <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
+    </nz-input-group>
+    <ng-template #suffixIcon>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+
+    <nz-tabset nzTabPosition="left">
+      <nz-tab nzTitle="Tab 1">
+        Tab 1
+      </nz-tab>
+      <nz-tab nzTitle="Tab 2">
+        Tab 2
+      </nz-tab>
+      <nz-tab nzTitle="Tab 3">
+        <div class="ant-transfer-list ming-left" data-direction="left" style="width: 40%">
+          <div class="ant-transfer-list-header">
+            <label class="ant-checkbox-wrapper ng-star-inserted">
+              <span class="ant-checkbox ant-checkbox-disabled"> <!--ant-checkbox-indeterminate:半选；ant-checkbox-checked：全选-->
+                <input class="ant-checkbox-input ng-untouched ng-pristine ng-valid" type="checkbox">
+                <span class="ant-checkbox-inner"></span>
+              </span>
+              <span style="display: none;"></span>
+            </label>
+            <span class="ant-transfer-list-header-selected">
+              <span>全选</span>
+              <span class="ant-transfer-list-header-title ng-star-inserted" (click)="reBack()">返回</span>
+            </span>
+          </div>
+          <div class="ant-transfer-list-body">
+            <ul class="ant-transfer-list-content ng-star-inserted">
+              <nz-tree class="tel-tree"
+                       #nzTreeComponent
+                       [nzData]="showNodes"
+                       [nzCheckable]="type=='checkbox'"
+                       [nzSearchValue]="searchValue"
+                       (nzClick)="activeNode($event)"
+                       (nzCheckBoxChange)="nzCheck($event)"
+                       [nzTreeTemplate]="nzTreeTemplate"
+              ></nz-tree>
+              <ng-template #nzTreeTemplate let-node>
+                <span class="custom-node" [class.active]="activedNode?.key === node.key">
+                  <!-- 多选-->
+                  <span *ngIf="type=='checkbox'">
+                    <span *ngIf="!node.isLeaf">
+                    <!-- 部门等 -->
+                    <span>{{ node.title }}</span>
+                    <i nz-icon nzType="right" class="tel-i-right"></i>
+                  </span>
+                    <span *ngIf="node.isLeaf">
+                    <span>
+                      <nz-avatar [nzSrc]="node.imgSrc"></nz-avatar>
+                      <div class="tel-avatar-info">
+                        <strong>{{node.title}}</strong>
+                        <br>
+                        <span>{{node.key}}</span>
+                      </div>
+                    </span>
+                  </span>
+                  </span>
+                  <!-- 单选-->
+                  <nz-radio-group [(ngModel)]="radioValue" (ngModelChange)="radioValueChange()">
+                  <span *ngIf="type=='radio'">
+                    <span *ngIf="!node.isLeaf">
+                    <!-- 部门等 -->
+                      <label class="ant-checkbox-wrapper ng-star-inserted">
+                        <span class="ant-checkbox ant-checkbox-disabled">
+                          <input class="ant-checkbox-input ng-untouched ng-pristine ng-valid" type="checkbox">
+                          <span class="ant-checkbox-inner"></span>
+                        </span>
+                        <span style="display: none;"></span>
+                      </label>
+                    <span>{{ node.title }}</span>
+                    <i nz-icon nzType="right" class="tel-i-right"></i>
+                  </span>
+                    <span *ngIf="node.isLeaf">
+                      <label nz-radio [nzValue]=node>
+                        <span>
+                      <nz-avatar [nzSrc]="node.imgSrc"></nz-avatar>
+                      <div class="tel-avatar-info">
+                        <strong>{{node.title}}</strong>
+                        <br>
+                        <span>{{node.key}}</span>
+                      </div>
+                    </span>
+                      </label>
+                  </span>
+                  </span>
+                  </nz-radio-group>
+                </span>
+              </ng-template>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ant-transfer-list ming-right" data-direction="right" style="width: 40%">
+          <!--<div *ngIf="checkedNodes.length>0">-->
+            <div class="ant-transfer-list-header">
+            <span class="ant-transfer-list-header-selected">
+              <span>已选{{checkedNodes.length}}人</span>
+              <span class="ant-transfer-list-header-title ng-star-inserted"><a (click)="clearChecked()">清空</a></span>
+            </span>
+            </div>
+            <div class="ant-transfer-list-body">
+              <ul class="ant-transfer-list-content ng-star-inserted">
+                <nz-tree class="tel-tree"
+                         [nzData]="checkedNodes"
+                         [nzTreeTemplate]="checkedNodesTemplate"
+                ></nz-tree>
+                <ng-template #checkedNodesTemplate let-node>
+                <span class="custom-node">
+                  <span *ngIf="node.isLeaf">
+                    <!-- 具体的人员 -->
+                    <span>
+                      <nz-avatar [nzSrc]="node.imgSrc"></nz-avatar>
+                      <div class="tel-avatar-info">
+                        <strong>{{node.title}}</strong>
+                        <br>
+                        <span>{{node.key}}</span>
+                      </div>
+                    </span>
+                    <i nz-icon nzType="close-circle" class="tel-i-right" (click)="removeRadioValue(node)"></i>
+                  </span>
+                </span>
+                </ng-template>
+              </ul>
+            </div>
+          <!--</div>-->
+        </div>
+
+
+      </nz-tab>
+    </nz-tabset>
+  </nz-card>
+</div>
