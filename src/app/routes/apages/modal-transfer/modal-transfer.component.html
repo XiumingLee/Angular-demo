@@ -13,9 +13,22 @@
     <ng-template #suffixIcon>
       <i nz-icon nzType="search"></i>
     </ng-template>
+    <!-- 标签相关-->
+    <div>
+      <strong>热门标签: </strong>
+      <nz-tag
+        *ngFor="let tag of hotTags"
+        nzMode="checkable"
+        [nzChecked]="selectedTags.indexOf(tag.key) > -1"
+        (nzCheckedChange)="handleChange($event, tag.key)"
+      >
+        {{ tag.title }}
+      </nz-tag>
+    </div>
 
     <nz-tabset nzTabPosition="left">
       <nz-tab nzTitle="Tab 1">
+        <ng-container [ngTemplateOutlet]=""></ng-container>
         Tab 1
       </nz-tab>
       <nz-tab nzTitle="Tab 2">

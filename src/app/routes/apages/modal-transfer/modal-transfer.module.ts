@@ -9,7 +9,7 @@ import {
   NzFormModule, NzGridModule,
   NzIconModule, NzInputModule,
   NzRadioModule,
-  NzTabsModule,
+  NzTabsModule, NzTagModule,
   NzTransferModule,
   NzTreeModule
 } from "ng-zorro-antd";
@@ -31,7 +31,8 @@ import {FormsModule} from "@angular/forms";
     NzIconModule,
     NzGridModule,
     NzAvatarModule,
-    NzInputModule
+    NzInputModule,
+    NzTagModule
   ]
 })
 export class ModalTransferModule { }

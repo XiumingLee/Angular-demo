@@ -3,6 +3,8 @@ import { NzTreeComponent } from 'ng-zorro-antd/tree';
 import { NzFormatEmitEvent, NzTreeNodeOptions, NzTreeNode } from 'ng-zorro-antd/core';
 import { TransferItem } from 'ng-zorro-antd/transfer';
 
+
+
 @Component({
   selector: 'app-modal-transfer',
   templateUrl: './modal-transfer.component.html',
@@ -10,6 +12,10 @@ import { TransferItem } from 'ng-zorro-antd/transfer';
   styleUrls:['./modal-transfer.component.less']
 })
 export class ModalTransferComponent implements OnInit {
+
+
+
+  constructor() { }
   @ViewChild('nzTreeComponent', { static: false }) nzTreeComponent: NzTreeComponent;
   list: TransferItem[] = [];
 
@@ -62,8 +68,14 @@ export class ModalTransferComponent implements OnInit {
   checkedNodes: NzTreeNodeOptions[] = [
   ];
 
+  tagsFromServer = [
+    { id:'11', title: '张佳宁',imgSrc:'./assets/tmp/img/1.png', key: '1000',  isLeaf: true },
+    { id:'12', title: '王守坤',imgSrc:'./assets/tmp/img/2.png', key: '1001',  isLeaf: true }
+  ];
 
-  constructor() { }
+  // 标签选择
+  hotTags = this.tagsFromServer;
+  selectedTags: string[] = [];
 
   ngOnInit() {
   }
@@ -169,5 +181,39 @@ export class ModalTransferComponent implements OnInit {
     },100)
   }
 
+  handleChange(checked: boolean, tag: string): void {
+    console.log(checked,tag); // tag是key；
+    if (checked) {
+      this.selectedTags.push(tag);
+      // todo 遍历 遍历原始数据，获取该key的对象。向选中的列表中添加此对象。
+    } else {
+      this.selectedTags = this.selectedTags.filter(t => t !== tag);
+    }
+    console.log('You are interested in: ', this.selectedTags);
+  }
+  // 标签选择结束
+
+  // 获取以选中的keys数组
+  getCheckedKeys(){
+    const checkedKeys = [];
+    this.checkedNodes.forEach(e=>{
+      checkedKeys.push(e.key);
+    })
+    return checkedKeys;
+  }
+
+  // 通过key获取node
+  getNodeByKey(arr:NzTreeNodeOptions[],key:string){
+    for (let i = 0; i < arr.length; i++) {
+      const item = arr[i];
+      if(!item.isLeaf && item.children.length > 0){
+        this.getNodeByKey(item.children,key);
+      } else {
+        if (item.key == key){
+          return item;
+        }
+      }
+    }
+  }
 
 }

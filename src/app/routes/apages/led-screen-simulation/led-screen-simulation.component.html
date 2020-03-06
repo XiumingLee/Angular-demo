@@ -1,0 +1,343 @@
+<div class="alain-default__content-title">
+  <h1>
+    LED模拟屏编辑器
+    <small>Welcome !</small>
+  </h1>
+</div>
+
+<nz-card>
+  <form nz-form [formGroup]="editForm">
+    <div nz-row nzGutter="16">
+      <!--左侧-->
+      <div nz-col class="gutter-row" nzSpan="12">
+
+        <!--素材名称-->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired>素材名称</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <input nz-input formControlName="name" [(ngModel)]="data.name" placeholder="请输入素材名称！">
+            <nz-form-explain *ngIf="editForm.get('name').dirty && editForm.get('name').errors">
+              <ng-container *ngIf="editForm.get('name').hasError('required')">
+                请输入素材名称!
+              </ng-container>
+              <ng-container *ngIf="editForm.get('name').hasError('maxlength')">
+                素材名称不要超过50字!
+              </ng-container>
+              <ng-container *ngIf="editForm.get('name').hasError('pattern')">
+                请输入内容且不能全部为空格!
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!--素材类型-->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired>素材类型</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-select formControlName="type" style="width: 100%;" [(ngModel)]="data.type"
+                       (ngModelChange)="typeChange($event)"
+                       nzPlaceHolder="请选择素材类型">
+              <nz-option nzValue="WJLXWB" nzLabel="文本"></nz-option>
+              <nz-option nzValue="WJLXTP" nzLabel="图片"></nz-option>
+              <nz-option nzValue="WJLXSP" nzLabel="视频"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="editForm.get('type').dirty && editForm.get('type').errors">
+              <ng-container *ngIf="editForm.get('type').hasError('required')">
+                请选择素材类型!
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!--素材分组-->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired>素材分组</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-select formControlName="category" style="width: 100%;" [(ngModel)]="data.category"
+                       nzPlaceHolder="请选择素材分组">
+              <nz-option  nzValue="1" nzLabel="广告"></nz-option>
+              <nz-option  nzValue="2" nzLabel="通知"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="editForm.get('category').dirty && editForm.get('category').errors">
+              <ng-container *ngIf="editForm.get('category').hasError('required')">
+                请选择素材分组!
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!--显示区尺寸-->
+        <nz-form-item *ngIf="data.type == 'WJLXWB'">
+          <nz-form-label [nzSpan]="5" nzRequired>显示区尺寸</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-select formControlName="resolution" style="width: 100%;"
+                       [(ngModel)]="data.resolution"
+                       (ngModelChange)="resolutionChange($event)"
+                       nzPlaceHolder="请选择显示区尺寸">
+              <nz-option  nzValue="256*128" nzLabel="256*128"></nz-option>
+              <nz-option  nzValue="512*256" nzLabel="512*256"></nz-option>
+              <nz-option  nzValue="800*600" nzLabel="800*600"></nz-option>
+              <nz-option  nzValue="1280*1024" nzLabel="1280*1024"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="editForm.get('resolution').dirty && editForm.get('resolution').errors">
+              <ng-container *ngIf="editForm.get('resolution').hasError('required')">
+                请选择显示区尺寸!
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!--背景素材-->
+        <nz-form-item *ngIf="data.type == 'WJLXWB'">
+          <nz-form-label [nzSpan]="5">背景素材</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-form-control [nzSpan]="5" class="p0">
+              <!--背景素材类型-->
+              <nz-select [(ngModel)]="data.backgroundtype"
+                         [ngModelOptions]="{standalone: true}"
+                         (ngModelChange)="backgroundTypeChange()">
+                <nz-option nzValue="1" nzLabel="图片"></nz-option>
+                <nz-option nzValue="2" nzLabel="视频"></nz-option>
+              </nz-select>
+            </nz-form-control>
+            <nz-form-control [nzSpan]="19">
+              <nz-upload *ngIf="!data.backgroundurl"
+                         [nzDisabled]="!data.backgroundtype"
+                         [nzShowUploadList]="false"
+                         [nzSize]="51200"
+                         nzAction="uploadFile"
+                         [nzCustomRequest]="customBackgroundFile">
+                <button nz-button [disabled]="!data.backgroundtype">
+                  <i nz-icon type="upload"></i>
+                  <span>上传文件</span>
+                </button>
+              </nz-upload>
+              <div *ngIf="data.backgroundurl" style="display: flex;justify-content: space-between;">
+                <span>{{data.backgroundname}}</span>
+                <span class="text-hover" nz-tooltip nzTitle="删除" (click)="deleteBackgroundFile()"><i nz-icon type="close-circle"></i></span>
+              </div>
+            </nz-form-control>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- region背景音频-->
+        <!--<nz-form-item *ngIf="data.type == 'WJLXWB'">-->
+        <!--<nz-form-label [nzSpan]="5">背景音频</nz-form-label>-->
+        <!--<nz-form-control [nzSpan]="16">-->
+        <!--<nz-upload *ngIf="!data.audio"-->
+        <!--[nzShowUploadList]="false"-->
+        <!--[nzSize]="51200"-->
+        <!--nzAction="uploadFile"-->
+        <!--[nzCustomRequest]="customAudioFile">-->
+        <!--<button nz-button>-->
+        <!--<i nz-icon type="upload"></i>-->
+        <!--<span>上传音频</span>-->
+        <!--</button>-->
+        <!--</nz-upload>-->
+        <!--<div *ngIf="data.audio" style="display: flex;justify-content: space-between;">-->
+        <!--<span>{{data.audioname}}</span>-->
+        <!--<span class="text-hover" nz-tooltip nzTitle="删除" (click)="deleteAudioFile()"><i nz-icon type="close-circle"></i></span>-->
+        <!--</div>-->
+        <!--</nz-form-control>-->
+        <!--</nz-form-item>-->
+        <!-- endregion背景音频-->
+
+        <!--文本域-->
+        <div *ngIf="data.type == 'WJLXWB'">
+          <div *ngFor="let textObj of data.textArray;let i = index;">
+            <!--文本区域-->
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" [nzRequired]="i == 0">文本域{{i+1}}</nz-form-label>
+              <nz-form-control [nzSpan]="16">
+                <input nz-input *ngIf="i == 0" formControlName="textContent" [(ngModel)]="textObj.text" (ngModelChange)="textStyleChange(textObj)">
+                <input nz-input *ngIf="i != 0" [(ngModel)]="textObj.text" [ngModelOptions]="{standalone: true}" (ngModelChange)="textStyleChange(textObj)">
+                <nz-form-explain *ngIf="i==0 && editForm.get('textContent').dirty && editForm.get('textContent').errors">
+                  <ng-container *ngIf="editForm.get('textContent').hasError('required')">
+                    请输入文本!
+                  </ng-container>
+                  <ng-container *ngIf="editForm.get('textContent').hasError('maxlength')">
+                    文本不要超过12字!
+                  </ng-container>
+                  <ng-container *ngIf="editForm.get('textContent').hasError('pattern')">
+                    请输入内容且不能全部为空格!
+                  </ng-container>
+                </nz-form-explain>
+              </nz-form-control>
+              <nz-form-control [nzSpan]="2" *ngIf="i != 0">
+                <button nz-tooltip nzTitle="删除" class="ml-xs" nz-button (click)="deleteText(textObj)">
+                  <i nz-icon nzType="delete"></i>
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+            <!--文本区域Css-->
+            <nz-form-item>
+              <nz-form-control [nzSpan]="5"></nz-form-control>
+              <nz-form-control [nzSpan]="19">
+                <!-- 字体大小-->
+                <nz-select style="width: 15%"
+                           [(ngModel)]="textObj.fontsize"
+                           [ngModelOptions]="{standalone: true}"
+                           (ngModelChange)="textStyleChange(textObj)">
+                  <nz-option nzValue="12px" nzLabel="12px"></nz-option>
+                  <nz-option nzValue="14px" nzLabel="14px"></nz-option>
+                  <nz-option nzValue="20px" nzLabel="20px"></nz-option>
+                </nz-select>
+                <!--字体类型-->
+                <nz-select class="ml-sm" style="width: 15%"
+                           [(ngModel)]="textObj.fonttype"
+                           [ngModelOptions]="{standalone: true}"
+                           (ngModelChange)="textStyleChange(textObj)">
+                  <nz-option nzValue="SimSun" nzLabel="宋体"></nz-option>
+                  <nz-option nzValue="Microsoft YaHei" nzLabel="微软雅黑"></nz-option>
+                  <nz-option nzValue="KaiTi" nzLabel="楷体"></nz-option>
+                </nz-select>
+                <!--字体颜色-->
+                <nz-select class="ml-sm" style="width: 15%"
+                           [(ngModel)]="textObj.color"
+                           [ngModelOptions]="{standalone: true}"
+                           (ngModelChange)="textStyleChange(textObj)">
+                  <nz-option nzValue="red" nzLabel="红色"></nz-option>
+                  <nz-option nzValue="black" nzLabel="黑色"></nz-option>
+                  <nz-option nzValue="green" nzLabel="绿色"></nz-option>
+                  <nz-option nzValue="blue" nzLabel="蓝色"></nz-option>
+                </nz-select>
+
+                <button nz-tooltip nzTitle="加粗" class="ml-xs" [nzType]="textObj.bold?'primary':'default'" (click)="textObj.bold = !textObj.bold;textStyleChange(textObj)" nz-button>B</button>
+                <button nz-tooltip nzTitle="斜体" nz-button [nzType]="textObj.italics?'primary':'default'" (click)="textObj.italics = !textObj.italics;textStyleChange(textObj)">I</button>
+                <!--<button nz-tooltip nzTitle="居中" nz-button><i nz-icon nzType="align-center"></i></button>-->
+                <button nz-tooltip nzTitle="选择变量" nz-button (click)="addVar(textObj)">V</button>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzSpan]="5"></nz-form-control>
+              <nz-form-control [nzSpan]="18">
+                X：<nz-input-number [ngModelOptions]="{standalone: true}" class="d-inline-block width-20" nz-input
+                                   [(ngModel)]="textObj.x" (ngModelChange)="textStyleChange(textObj)"
+                                   [nzMin]="0" [nzStep]="0.1"></nz-input-number>
+                Y：<nz-input-number [ngModelOptions]="{standalone: true}" class="d-inline-block width-20" nz-input
+                                   [(ngModel)]="textObj.y" (ngModelChange)="textStyleChange(textObj)"
+                                   [nzMin]="0" [nzStep]="0.1"></nz-input-number>
+                <label [ngModelOptions]="{standalone: true}" nz-checkbox class="ml-sm"
+                       [(ngModel)]="textObj.linefeed" (ngModelChange)="textStyleChange(textObj)">是否换行</label>
+              </nz-form-control>
+            </nz-form-item>
+            <!--第三行样式设置-->
+            <!--<nz-form-item>-->
+            <!--<nz-form-control [nzSpan]="5"></nz-form-control>-->
+            <!--<nz-form-control [nzSpan]="18">-->
+            <!--宽度：<nz-input-number [ngModelOptions]="{standalone: true}" class="d-inline-block width-20" nz-input-->
+            <!--[(ngModel)]="textObj.with" (ngModelChange)="textStyleChange(textObj)"-->
+            <!--[nzMin]="0" [nzStep]="0.1"></nz-input-number>-->
+            <!--<span class="ml-sm">-->
+            <!--对齐方式：-->
+            <!--<nz-select style="width: 20%"-->
+            <!--[(ngModel)]="textObj.alignment"-->
+            <!--[ngModelOptions]="{standalone: true}"-->
+            <!--(ngModelChange)="textStyleChange(textObj)">-->
+            <!--<nz-option nzValue="left" nzLabel="左对齐"></nz-option>-->
+            <!--<nz-option nzValue="center" nzLabel="居中对齐"></nz-option>-->
+            <!--<nz-option nzValue="right" nzLabel="右对齐"></nz-option>-->
+            <!--</nz-select>-->
+            <!--</span>-->
+            <!--&lt;!&ndash;显示边框&ndash;&gt;-->
+            <!--<button nz-tooltip nzTitle="显示边框" class="ml-xs" [nzType]="textObj.showborder?'primary':'default'" -->
+            <!--(click)="textObj.showborder = !textObj.showborder;textStyleChange(textObj)" nz-button>-->
+            <!--<i nz-icon type="eye"></i>-->
+            <!--</button>-->
+            <!---->
+            <!--</nz-form-control>-->
+            <!--</nz-form-item>-->
+          </div>
+          <nz-form-item>
+            <nz-form-control [nzSpan]="16" nzOffset="5">
+              <button nz-button nzType="dashed" class="width-100" (click)="addText()">
+                <i class="anticon anticon-plus"></i>
+                新增文本区域
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <!--素材描述-->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5">素材描述</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <textarea nz-input [(ngModel)]="data.remark" rows="3" maxlength="500" [ngModelOptions]="{standalone: true}"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+
+
+        <nz-form-item>
+          <nz-form-control [nzOffset]="5" [nzSpan]="16">
+            <button nz-button (click)="reback()">返回</button>
+            <button nz-button nzType="primary" (click)="save()">保存</button>
+          </nz-form-control>
+        </nz-form-item>
+
+      </div>
+
+      <!--右侧-->
+      <div nz-col class="gutter-row" nzSpan="12">
+        <!--非文本展示区-->
+        <div *ngIf="data.type != 'WJLXWB'" id="upload_file">
+          <div class="width-60 mb-md" style="max-height: 200px">
+            <img *ngIf="!data.filepath" src="./assets/tmp/img/bg4.jpg" class="width-60 mb-md" style="max-height: 200px">
+            <img *ngIf="data.type == 'WJLXTP' && data.filepath" [src]="data.filepath" class="width-60 mb-md" style="max-height: 200px">
+
+            <video *ngIf="data.type == 'WJLXSP' && data.filepath" controls="controls" class="width-60 mb-md" style="max-height: 200px">
+              <source [src]="data.filepath" />
+            </video>
+          </div>
+          <!--上传文件-->
+          <nz-upload [nzShowUploadList]="false"
+                     [nzFileType]="fileTypeList"
+                     [nzSize]="51200"
+                     nzAction="uploadFile"
+                     [nzCustomRequest]="customReq">
+            <button nz-button>
+              <i nz-icon type="upload"></i>
+              <span>上传文件</span>
+            </button>
+          </nz-upload>
+        </div>
+
+        <!--文本展示区-->
+        <div *ngIf="data.type == 'WJLXWB'">
+          <div style="overflow-x: auto;overflow-y: auto;width: 550px;height: 500px;">
+            <div [ngStyle]="exhibitionAreaStyle" id="exhibition_area">
+              <!--背景图片-->
+              <img *ngIf="data.backgroundtype == '1' && data.backgroundurl" [ngStyle]="data.backgroundfilestyle" [src]="data.backgroundurl">
+              <!--背景视频-->
+              <video *ngIf="data.backgroundtype == '2' && data.backgroundurl" [ngStyle]="data.backgroundfilestyle" controls="controls" loop autoplay="autoplay">
+                <source [src]="data.backgroundurl" />
+              </video>
+              <!--背景音频-->
+              <!--<audio *ngIf="data.audio" controls="controls" autoplay="autoplay" loop style="display:none;">-->
+              <!--<source [src]="data.audio"/>-->
+              <!--</audio>-->
+
+              <!--文本域-->
+              <div *ngFor="let row of data.textArray" [ngStyle]="row.style" #divElement>
+                {{row.text}}{{setWidthAndHeight(row,divElement)}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+  <!--说明-->
+  <div class="border-top-1 mt-lg px-lg text-grey-dark">
+    <h3 class="h3 my-md">说明</h3>
+    <p class="mb-sm">图片支持：jpg、png、bmp、gif  视频支持：mp4、mkv、ogg、mov最大支持(50M)</p>
+  </div>
+</nz-card>
+
+<!--变量选择框-->
+<nz-modal [(nzVisible)]="varModalVisible" nzTitle="请选择需要的字段。" (nzOnCancel)="varModalHandleCancel()" (nzOnOk)="varModalHandleOk()">
+  <nz-tag *ngFor="let tag of varTags" nzMode="checkable"
+          [nzChecked]="selectedTags.indexOf(tag.value) > -1" (nzCheckedChange)="varTagsHandleChange($event, tag)">
+    {{ tag.label }}
+  </nz-tag>
+</nz-modal>

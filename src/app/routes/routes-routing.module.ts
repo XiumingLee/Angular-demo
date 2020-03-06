@@ -33,6 +33,7 @@ const routes: Routes = [
       { path: 'form-validator', loadChildren: () => import('./apages/form-validator/form-validator.module').then(m => m.FormValidatorModule),data: { title: '动态表单验证'} },
       { path: 'component-test', loadChildren: () => import('./apages/component-test/component-test.module').then(m => m.ComponentTestModule),data: { title: '组件传值测试'} },
       { path: 'modal-transfer', loadChildren: () => import('./apages/modal-transfer/modal-transfer.module').then(m => m.ModalTransferModule),data: { title: '模态框+穿梭框'} },
+      { path: 'led-screen', loadChildren: () => import('./apages/led-screen-simulation/led-screen-simulation.module').then(m => m.LedScreenSimulationModule),data: { title: 'LED模拟屏编辑器'} },
     ]
   },
 

@@ -1,0 +1,30 @@
+{
+  "name": "",
+  "backgroundtype": "1/2|图片/视频",
+  "backgroundurl": "背景资源地址",
+  "backgroundname": "背景资源名称",
+  "backgroundfilestyle": {"背景资源样式": ""},
+  "audio": "音乐地址",
+  "audioname": "音乐文件名称",
+  "audiofilestyle": {"音频资源样式": ""},
+  "textArray": [
+    {
+      "text": "文本内容",
+      "x": 1,
+      "y": 2,
+      "bold": "粗体",
+      "fontsize": "14px",
+      "fonttype": "字体类型",
+      "color": "red",
+      "var": ["已选择的变量"],
+      "italics": "是否斜体",
+      "alignment": "对齐方式",
+      "linefeed": "是否自动换行",
+      "sort": "排序",
+      "style": {"样式": "内容！"},
+      "width": "宽度",
+      "height": "高度",
+      "showborder" : "是否显示边框"
+    }
+  ]
+}
