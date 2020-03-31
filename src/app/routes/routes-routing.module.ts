@@ -35,6 +35,7 @@ const routes: Routes = [
       { path: 'modal-transfer', loadChildren: () => import('./apages/modal-transfer/modal-transfer.module').then(m => m.ModalTransferModule),data: { title: '模态框+穿梭框'} },
       { path: 'led-screen', loadChildren: () => import('./apages/led-screen-simulation/led-screen-simulation.module').then(m => m.LedScreenSimulationModule),data: { title: 'LED模拟屏编辑器'} },
       { path: 'learn-typescript', loadChildren: () => import('./apages/learn-typescript/learn-typescript.module').then(m => m.LearnTypescriptModule),data: { title: '学习TypeScript'} },
+      { path: 'learn-angular', loadChildren: () => import('./apages/learn-angular/learn-angular.module').then(m => m.LearnAngularModule),data: { title: '学习Angular'} },
     ]
   },
 
