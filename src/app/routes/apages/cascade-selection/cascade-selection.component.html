@@ -27,4 +27,10 @@
 
 </form>
 
+  <!--其他测试-->
+  <nz-select [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="Choose">
+    <nz-option *ngFor="let tem of selectList" [nzValue]="tem.id" [nzLabel]="tem.value | testPipe"></nz-option>
+  </nz-select>
+  <div>{{testValue | testPipe}}</div>
+
 </div>

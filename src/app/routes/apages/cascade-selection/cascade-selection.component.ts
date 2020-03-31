@@ -21,6 +21,17 @@ export class CascadeSelectionComponent implements OnInit {
   // areaSimulation = '甘肃省/庆阳市/合水县政务大厅';
   areaSimulation = '甘肃省/庆阳市/合水县_;';
 
+  // 其他测试属性
+  selectedValue = '1';
+  selectList = [
+    {"id":"1","value":'{"default":"默认值","zh_CN":"中文值","en_US":"英文值"}'},
+    {"id":"2","value":'{"default":"默认值","zh_CN":"中文值","en_US":"英文值"}'},
+    {"id":"3","value":'{"default":"默认值","zh_CN":"中文值","en_US":"英文值"}'},
+  ];
+  testValue = "12345";
+
+
+
   constructor(
     private message: NzMessageService
   ) {

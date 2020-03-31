@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared';
 import { CascadeSelectionRoutingModule } from './cascade-selection-routing.module';
 import { CascadeSelectionComponent } from './cascade-selection.component';
+import {TestPipePipe} from "../../../common/test-pipe.pipe";
 
 const COMPONENTS = [];
 const COMPONENTS_NOROUNT = [];
@@ -14,7 +15,8 @@ const COMPONENTS_NOROUNT = [];
   declarations: [
     ...COMPONENTS,
     ...COMPONENTS_NOROUNT,
-    CascadeSelectionComponent
+    CascadeSelectionComponent,
+    TestPipePipe
   ],
   entryComponents: COMPONENTS_NOROUNT
 })
