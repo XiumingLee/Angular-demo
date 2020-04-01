@@ -1,0 +1,14 @@
+<div class="alain-default__content-title">
+  <h1>
+    Angular指令!
+    <small>Welcome !</small>
+  </h1>
+</div>
+
+<div
+  [app-draggable]="true"
+  [dragTag]="'task-item'"
+  [draggedClass]="'drag-start'"
+  [dragData]="markData">
+  我可以拖动吗？
+</div>
